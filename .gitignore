@@ -1,3 +1,8 @@
+
+
+Ground textures pack/
+
+# Random stuff
 /.vs
 /Builds
 /Library
@@ -45,7 +50,6 @@ ExportedObj/
 *.booproj
 *.svd
 
-
 # Unity3D generated meta files
 *.pidb.meta
 
@@ -55,3 +59,4 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+
