@@ -24,10 +24,10 @@ public class PlayerController : MonoBehaviour
 
         Player.AddForce(new Vector3(h, 0, v) * Speed);
 
-        if (Player.velocity.magnitude > MaxSpeed)
-        {
-            Player.velocity = Player.velocity.normalized*MaxSpeed * Time.fixedDeltaTime;
-        }
+//        if (Player.velocity.magnitude > MaxSpeed)
+//        {
+//            Player.velocity = Player.velocity.normalized*MaxSpeed * Time.fixedDeltaTime;
+//        }
 
     }
 }

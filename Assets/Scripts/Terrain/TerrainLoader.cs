@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Sockets;
 using Google.Protobuf;
 using NigelGott.Terra.Protobufs;
@@ -6,7 +7,7 @@ using UnityEngine;
 
 namespace NigelGott.Terra.Terrain
 {
-    public class TerrainLoader 
+    public class TerrainLoader
     {
         private readonly IAsyncResult asyncResult;
         private readonly ASyncLoadTerrainTilesFromRemote aSyncLoadTerrainTilesFromRemote;
@@ -15,20 +16,19 @@ namespace NigelGott.Terra.Terrain
         public TerrainLoader()
         {
             aSyncLoadTerrainTilesFromRemote = this.LoadTerrainTilesFromRemote;
-            asyncResult = aSyncLoadTerrainTilesFromRemote.BeginInvoke( null, null);
+            asyncResult = aSyncLoadTerrainTilesFromRemote.BeginInvoke(null, null);
         }
 
-        public TerrainTile TileIfReady()
+        public List<TerrainTile> TilesIfReady()
         {
-                return asyncResult.IsCompleted
-                    ? aSyncLoadTerrainTilesFromRemote.EndInvoke(asyncResult)
-                    : null;
-
+            return asyncResult.IsCompleted
+                ? aSyncLoadTerrainTilesFromRemote.EndInvoke(asyncResult)
+                : null;
         }
 
-        private delegate TerrainTile ASyncLoadTerrainTilesFromRemote();
-     
-        private TerrainTile LoadTerrainTilesFromRemote()
+        private delegate List<TerrainTile> ASyncLoadTerrainTilesFromRemote();
+
+        private List<TerrainTile> LoadTerrainTilesFromRemote()
         {
             using (var tcpClient = new TcpClient("127.0.0.1", 9023))
             {
@@ -37,37 +37,46 @@ namespace NigelGott.Terra.Terrain
                 {
                     var requestMessage = new RequestMessage
                     {
-                        Type = RequestMessage.Types.RequestType.InitialWorldState
+                        Type = RequestMessage.Types.RequestType.InitialWorldState,
+                        PlayerName = "Nigel"
                     };
 
                     Debug.Log("Sending :" + requestMessage);
 
                     requestMessage.WriteDelimitedTo(stream);
 
-                    var loadedHeightMapMessage = HeightMapMessage.Parser.ParseDelimitedFrom(stream);
-                
+                    List<TerrainTile> terrainTiles = new List<TerrainTile>();
 
-                    var count = loadedHeightMapMessage.Height.Count;
+                    var responseMessage = ResponseMessage.Parser.ParseDelimitedFrom(stream);
 
-                    Debug.Log("Recieved " + count + " heights...");
-                    var heightmapSize = Convert.ToInt32(Math.Sqrt(count));
+                    for(int i = 0; i < responseMessage.NumOfResponses; i++) { 
+                        var loadedHeightMapMessage = HeightMapMessage.Parser.ParseDelimitedFrom(stream);
 
-                    if (heightmapSize*heightmapSize > count)
-                    {
-                        throw new ApplicationException("Received a non square heightmap from server");
-                    }
 
-                    var heights = new float[heightmapSize,heightmapSize];
+                        var count = loadedHeightMapMessage.Height.Count;
 
-                    for (var y = 0; y < heightmapSize; y++)
-                    {
-                        for (var x = 0; x < heightmapSize; x++)
+                        Debug.Log("Received chunk " + i + " with " + count + " heights...");
+                        var heightmapSize = Convert.ToInt32(Math.Sqrt(count));
+
+                        if (heightmapSize*heightmapSize > count)
                         {
-                            heights[y, x] = (float)loadedHeightMapMessage.Height[x + y*heightmapSize] / 100;
+                            throw new ApplicationException("Received a non square heightmap from server");
                         }
+
+                        var heights = new float[heightmapSize, heightmapSize];
+
+                        for (var y = 0; y < heightmapSize; y++)
+                        {
+                            for (var x = 0; x < heightmapSize; x++)
+                            {
+                                heights[y, x] = (float) loadedHeightMapMessage.Height[x + y*heightmapSize]/ TerrainConfig.MAXIMUM_TERRAIN_HEIGHT_WORLD_UNITS;
+                            }
+                        }
+
+                        terrainTiles.Add(new TerrainTile(heights, loadedHeightMapMessage.Y, loadedHeightMapMessage.X));
                     }
 
-                    return new TerrainTile(heights);
+                    return terrainTiles;
                 }
             }
         }

@@ -22,12 +22,18 @@ namespace NigelGott.Terra.Terrain
             {
                 try
                 {
-                    var tileIfReady = terrainLoader.TileIfReady();
-                    if (tileIfReady != null)
+                    var tilesIfReady = terrainLoader.TilesIfReady();
+                    if (tilesIfReady != null)
                     {
-                        var terrainObject = new TerrainTileRenderer(tileIfReady, terrainConfig).BuildGameObject();
-                        terrainObject.transform.parent = gameObject.transform;
-                        terrainObject.transform.position = player.transform.position - new Vector3(0, 10, 0);
+                        foreach(TerrainTile tile in tilesIfReady)
+                        {
+                            var terrainObject = new TerrainTileRenderer(tile, terrainConfig).BuildGameObject();
+                            terrainObject.transform.parent = gameObject.transform;
+                            var spawnLoc = new Vector3(tile.Size * tile.X, -100, tile.Size * tile.Y);
+                            Debug.Log("Spawning chunk at " + spawnLoc);
+                            terrainObject.transform.position = player.transform.position + spawnLoc;
+                        }
+
                         terrainLoader = null;
                     }
                 }
