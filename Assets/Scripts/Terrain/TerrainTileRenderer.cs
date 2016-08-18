@@ -19,7 +19,7 @@ namespace NigelGott.Terra.Terrain
 
             terrainData.heightmapResolution = tile.Size;
             terrainData.size = config.CreateTerrainWorldSizeFromTile(tile);
-            terrainData.baseMapResolution = tile.Size;
+            terrainData.baseMapResolution = Mathf.Clamp(tile.Size, 16, 2048);
             terrainData.SetDetailResolution(tile.Size, 8);
             terrainData.SetHeights(0, 0, tile.heights);
 

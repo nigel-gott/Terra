@@ -5,14 +5,14 @@ using System.Collections;
 public class PlayerController : MonoBehaviour
 {
 
-    public Rigidbody player;
+    public Rigidbody Player;
+    public float Speed = 10.0f;
+    public float MaxSpeed = 1.3f;
 
-    public float speed = 10.0f;
-
-	// Use this for initialization
+    // Use this for initialization
 	void Start ()
 	{
-	    player = GetComponent<Rigidbody>();
+	    Player = GetComponent<Rigidbody>();
 
 	}
 
@@ -22,7 +22,12 @@ public class PlayerController : MonoBehaviour
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
-        player.AddForce(new Vector3(h, 0, v) * speed);
+        Player.AddForce(new Vector3(h, 0, v) * Speed);
+
+        if (Player.velocity.magnitude > MaxSpeed)
+        {
+            Player.velocity = Player.velocity.normalized*MaxSpeed * Time.fixedDeltaTime;
+        }
 
     }
 }

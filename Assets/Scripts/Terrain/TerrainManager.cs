@@ -31,7 +31,7 @@ namespace NigelGott.Terra.Terrain
                         terrainLoader = null;
                     }
                 }
-                catch (ApplicationException e)
+                catch (Exception e)
                 {
                     terrainLoader = null;
                     throw e;

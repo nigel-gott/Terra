@@ -20,8 +20,10 @@ namespace NigelGott.Terra.Terrain
 
         public TerrainTile TileIfReady()
         {
-            return asyncResult.IsCompleted ?
-                aSyncLoadTerrainTilesFromRemote.EndInvoke(asyncResult) : null;
+                return asyncResult.IsCompleted
+                    ? aSyncLoadTerrainTilesFromRemote.EndInvoke(asyncResult)
+                    : null;
+
         }
 
         private delegate TerrainTile ASyncLoadTerrainTilesFromRemote();
@@ -61,7 +63,7 @@ namespace NigelGott.Terra.Terrain
                     {
                         for (var x = 0; x < heightmapSize; x++)
                         {
-                            heights[y, x] = (float)loadedHeightMapMessage.Height[x + y*heightmapSize] / heightmapSize;
+                            heights[y, x] = (float)loadedHeightMapMessage.Height[x + y*heightmapSize] / 100;
                         }
                     }
 
