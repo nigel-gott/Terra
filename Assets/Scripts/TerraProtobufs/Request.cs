@@ -23,15 +23,22 @@ namespace NigelGott.Terra.Protobufs {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "Citjb20vbmlnZWxnb3R0L3RlcnJhL3Byb3RvYnVmcy9yZXF1ZXN0LnByb3Rv",
-            "IncKDlJlcXVlc3RNZXNzYWdlEikKBHR5cGUYASABKA4yGy5SZXF1ZXN0TWVz",
-            "c2FnZS5SZXF1ZXN0VHlwZRISCgpwbGF5ZXJOYW1lGAIgASgJIiYKC1JlcXVl",
-            "c3RUeXBlEhcKE0lOSVRJQUxfV09STERfU1RBVEUQAEI7Ch1jb20ubmlnZWxn",
-            "b3R0LnRlcnJhLnByb3RvYnVmc6oCGU5pZ2VsR290dC5UZXJyYS5Qcm90b2J1",
-            "ZnNiBnByb3RvMw=="));
+            "Ip8BCg5SZXF1ZXN0TWVzc2FnZRIpCgR0eXBlGAEgASgOMhsuUmVxdWVzdE1l",
+            "c3NhZ2UuUmVxdWVzdFR5cGUSEgoKcGxheWVyTmFtZRgCIAEoCSJOCgtSZXF1",
+            "ZXN0VHlwZRIPCgtXT1JMRF9TVEFURRAAEhIKDlRFUlJBSU5fQ0hVTktTEAES",
+            "GgoWUExBWUVSX0xPQ0FUSU9OX0NIQU5HRRACIkEKDENodW5rUmVxdWVzdBIR",
+            "CgljaHVua1NpemUYASABKAUSHgoLY2h1bmtDb29yZHMYAiADKAsyCS5JbnRD",
+            "b29yZCIgCghJbnRDb29yZBIJCgF4GAEgASgFEgkKAXkYAiABKAUiIgoKRmxv",
+            "YXRDb29yZBIJCgF4GAEgASgCEgkKAXkYAiABKAJCOwodY29tLm5pZ2VsZ290",
+            "dC50ZXJyYS5wcm90b2J1ZnOqAhlOaWdlbEdvdHQuVGVycmEuUHJvdG9idWZz",
+            "YgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::NigelGott.Terra.Protobufs.RequestMessage), global::NigelGott.Terra.Protobufs.RequestMessage.Parser, new[]{ "Type", "PlayerName" }, null, new[]{ typeof(global::NigelGott.Terra.Protobufs.RequestMessage.Types.RequestType) }, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::NigelGott.Terra.Protobufs.RequestMessage), global::NigelGott.Terra.Protobufs.RequestMessage.Parser, new[]{ "Type", "PlayerName" }, null, new[]{ typeof(global::NigelGott.Terra.Protobufs.RequestMessage.Types.RequestType) }, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NigelGott.Terra.Protobufs.ChunkRequest), global::NigelGott.Terra.Protobufs.ChunkRequest.Parser, new[]{ "ChunkSize", "ChunkCoords" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NigelGott.Terra.Protobufs.IntCoord), global::NigelGott.Terra.Protobufs.IntCoord.Parser, new[]{ "X", "Y" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NigelGott.Terra.Protobufs.FloatCoord), global::NigelGott.Terra.Protobufs.FloatCoord.Parser, new[]{ "X", "Y" }, null, null, null)
           }));
     }
     #endregion
@@ -186,11 +193,440 @@ namespace NigelGott.Terra.Protobufs {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static partial class Types {
       public enum RequestType {
-        [pbr::OriginalName("INITIAL_WORLD_STATE")] InitialWorldState = 0,
+        [pbr::OriginalName("WORLD_STATE")] WorldState = 0,
+        [pbr::OriginalName("TERRAIN_CHUNKS")] TerrainChunks = 1,
+        [pbr::OriginalName("PLAYER_LOCATION_CHANGE")] PlayerLocationChange = 2,
       }
 
     }
     #endregion
+
+  }
+
+  public sealed partial class ChunkRequest : pb::IMessage<ChunkRequest> {
+    private static readonly pb::MessageParser<ChunkRequest> _parser = new pb::MessageParser<ChunkRequest>(() => new ChunkRequest());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<ChunkRequest> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::NigelGott.Terra.Protobufs.RequestReflection.Descriptor.MessageTypes[1]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public ChunkRequest() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public ChunkRequest(ChunkRequest other) : this() {
+      chunkSize_ = other.chunkSize_;
+      chunkCoords_ = other.chunkCoords_.Clone();
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public ChunkRequest Clone() {
+      return new ChunkRequest(this);
+    }
+
+    /// <summary>Field number for the "chunkSize" field.</summary>
+    public const int ChunkSizeFieldNumber = 1;
+    private int chunkSize_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int ChunkSize {
+      get { return chunkSize_; }
+      set {
+        chunkSize_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "chunkCoords" field.</summary>
+    public const int ChunkCoordsFieldNumber = 2;
+    private static readonly pb::FieldCodec<global::NigelGott.Terra.Protobufs.IntCoord> _repeated_chunkCoords_codec
+        = pb::FieldCodec.ForMessage(18, global::NigelGott.Terra.Protobufs.IntCoord.Parser);
+    private readonly pbc::RepeatedField<global::NigelGott.Terra.Protobufs.IntCoord> chunkCoords_ = new pbc::RepeatedField<global::NigelGott.Terra.Protobufs.IntCoord>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::RepeatedField<global::NigelGott.Terra.Protobufs.IntCoord> ChunkCoords {
+      get { return chunkCoords_; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as ChunkRequest);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(ChunkRequest other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (ChunkSize != other.ChunkSize) return false;
+      if(!chunkCoords_.Equals(other.chunkCoords_)) return false;
+      return true;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (ChunkSize != 0) hash ^= ChunkSize.GetHashCode();
+      hash ^= chunkCoords_.GetHashCode();
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (ChunkSize != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(ChunkSize);
+      }
+      chunkCoords_.WriteTo(output, _repeated_chunkCoords_codec);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (ChunkSize != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(ChunkSize);
+      }
+      size += chunkCoords_.CalculateSize(_repeated_chunkCoords_codec);
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(ChunkRequest other) {
+      if (other == null) {
+        return;
+      }
+      if (other.ChunkSize != 0) {
+        ChunkSize = other.ChunkSize;
+      }
+      chunkCoords_.Add(other.chunkCoords_);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 8: {
+            ChunkSize = input.ReadInt32();
+            break;
+          }
+          case 18: {
+            chunkCoords_.AddEntriesFrom(input, _repeated_chunkCoords_codec);
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class IntCoord : pb::IMessage<IntCoord> {
+    private static readonly pb::MessageParser<IntCoord> _parser = new pb::MessageParser<IntCoord>(() => new IntCoord());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<IntCoord> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::NigelGott.Terra.Protobufs.RequestReflection.Descriptor.MessageTypes[2]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public IntCoord() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public IntCoord(IntCoord other) : this() {
+      x_ = other.x_;
+      y_ = other.y_;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public IntCoord Clone() {
+      return new IntCoord(this);
+    }
+
+    /// <summary>Field number for the "x" field.</summary>
+    public const int XFieldNumber = 1;
+    private int x_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int X {
+      get { return x_; }
+      set {
+        x_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "y" field.</summary>
+    public const int YFieldNumber = 2;
+    private int y_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int Y {
+      get { return y_; }
+      set {
+        y_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as IntCoord);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(IntCoord other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (X != other.X) return false;
+      if (Y != other.Y) return false;
+      return true;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (X != 0) hash ^= X.GetHashCode();
+      if (Y != 0) hash ^= Y.GetHashCode();
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (X != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(X);
+      }
+      if (Y != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(Y);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (X != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(X);
+      }
+      if (Y != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Y);
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(IntCoord other) {
+      if (other == null) {
+        return;
+      }
+      if (other.X != 0) {
+        X = other.X;
+      }
+      if (other.Y != 0) {
+        Y = other.Y;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 8: {
+            X = input.ReadInt32();
+            break;
+          }
+          case 16: {
+            Y = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class FloatCoord : pb::IMessage<FloatCoord> {
+    private static readonly pb::MessageParser<FloatCoord> _parser = new pb::MessageParser<FloatCoord>(() => new FloatCoord());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<FloatCoord> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::NigelGott.Terra.Protobufs.RequestReflection.Descriptor.MessageTypes[3]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public FloatCoord() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public FloatCoord(FloatCoord other) : this() {
+      x_ = other.x_;
+      y_ = other.y_;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public FloatCoord Clone() {
+      return new FloatCoord(this);
+    }
+
+    /// <summary>Field number for the "x" field.</summary>
+    public const int XFieldNumber = 1;
+    private float x_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public float X {
+      get { return x_; }
+      set {
+        x_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "y" field.</summary>
+    public const int YFieldNumber = 2;
+    private float y_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public float Y {
+      get { return y_; }
+      set {
+        y_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as FloatCoord);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(FloatCoord other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (X != other.X) return false;
+      if (Y != other.Y) return false;
+      return true;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (X != 0F) hash ^= X.GetHashCode();
+      if (Y != 0F) hash ^= Y.GetHashCode();
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (X != 0F) {
+        output.WriteRawTag(13);
+        output.WriteFloat(X);
+      }
+      if (Y != 0F) {
+        output.WriteRawTag(21);
+        output.WriteFloat(Y);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (X != 0F) {
+        size += 1 + 4;
+      }
+      if (Y != 0F) {
+        size += 1 + 4;
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(FloatCoord other) {
+      if (other == null) {
+        return;
+      }
+      if (other.X != 0F) {
+        X = other.X;
+      }
+      if (other.Y != 0F) {
+        Y = other.Y;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 13: {
+            X = input.ReadFloat();
+            break;
+          }
+          case 21: {
+            Y = input.ReadFloat();
+            break;
+          }
+        }
+      }
+    }
 
   }
 

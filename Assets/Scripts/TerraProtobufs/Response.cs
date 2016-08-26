@@ -23,15 +23,18 @@ namespace NigelGott.Terra.Protobufs {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "Cixjb20vbmlnZWxnb3R0L3RlcnJhL3Byb3RvYnVmcy9yZXNwb25zZS5wcm90",
-            "byJzCg9SZXNwb25zZU1lc3NhZ2USKwoEdHlwZRgBIAEoDjIdLlJlc3BvbnNl",
-            "TWVzc2FnZS5SZXNwb25zZVR5cGUSFgoObnVtT2ZSZXNwb25zZXMYAiABKAUi",
-            "GwoMUmVzcG9uc2VUeXBlEgsKB1RFUlJBSU4QAEI7Ch1jb20ubmlnZWxnb3R0",
-            "LnRlcnJhLnByb3RvYnVmc6oCGU5pZ2VsR290dC5UZXJyYS5Qcm90b2J1ZnNi",
-            "BnByb3RvMw=="));
+            "bxorY29tL25pZ2VsZ290dC90ZXJyYS9wcm90b2J1ZnMvcmVxdWVzdC5wcm90",
+            "byJfCg9SZXNwb25zZU1lc3NhZ2USKwoEdHlwZRgBIAEoDjIdLlJlc3BvbnNl",
+            "TWVzc2FnZS5SZXNwb25zZVR5cGUiHwoMUmVzcG9uc2VUeXBlEg8KC1dPUkxE",
+            "X1NUQVRFEAAiRAoKV29ybGRTdGF0ZRIRCgl3b3JsZFNpemUYASABKAUSIwoO",
+            "cGxheWVyTG9jYXRpb24YAiABKAsyCy5GbG9hdENvb3JkQjsKHWNvbS5uaWdl",
+            "bGdvdHQudGVycmEucHJvdG9idWZzqgIZTmlnZWxHb3R0LlRlcnJhLlByb3Rv",
+            "YnVmc2IGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { },
+          new pbr::FileDescriptor[] { global::NigelGott.Terra.Protobufs.RequestReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::NigelGott.Terra.Protobufs.ResponseMessage), global::NigelGott.Terra.Protobufs.ResponseMessage.Parser, new[]{ "Type", "NumOfResponses" }, null, new[]{ typeof(global::NigelGott.Terra.Protobufs.ResponseMessage.Types.ResponseType) }, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::NigelGott.Terra.Protobufs.ResponseMessage), global::NigelGott.Terra.Protobufs.ResponseMessage.Parser, new[]{ "Type" }, null, new[]{ typeof(global::NigelGott.Terra.Protobufs.ResponseMessage.Types.ResponseType) }, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NigelGott.Terra.Protobufs.WorldState), global::NigelGott.Terra.Protobufs.WorldState.Parser, new[]{ "WorldSize", "PlayerLocation" }, null, null, null)
           }));
     }
     #endregion
@@ -63,7 +66,6 @@ namespace NigelGott.Terra.Protobufs {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public ResponseMessage(ResponseMessage other) : this() {
       type_ = other.type_;
-      numOfResponses_ = other.numOfResponses_;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -82,17 +84,6 @@ namespace NigelGott.Terra.Protobufs {
       }
     }
 
-    /// <summary>Field number for the "numOfResponses" field.</summary>
-    public const int NumOfResponsesFieldNumber = 2;
-    private int numOfResponses_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int NumOfResponses {
-      get { return numOfResponses_; }
-      set {
-        numOfResponses_ = value;
-      }
-    }
-
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as ResponseMessage);
@@ -107,7 +98,6 @@ namespace NigelGott.Terra.Protobufs {
         return true;
       }
       if (Type != other.Type) return false;
-      if (NumOfResponses != other.NumOfResponses) return false;
       return true;
     }
 
@@ -115,7 +105,6 @@ namespace NigelGott.Terra.Protobufs {
     public override int GetHashCode() {
       int hash = 1;
       if (Type != 0) hash ^= Type.GetHashCode();
-      if (NumOfResponses != 0) hash ^= NumOfResponses.GetHashCode();
       return hash;
     }
 
@@ -130,10 +119,6 @@ namespace NigelGott.Terra.Protobufs {
         output.WriteRawTag(8);
         output.WriteEnum((int) Type);
       }
-      if (NumOfResponses != 0) {
-        output.WriteRawTag(16);
-        output.WriteInt32(NumOfResponses);
-      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -141,9 +126,6 @@ namespace NigelGott.Terra.Protobufs {
       int size = 0;
       if (Type != 0) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Type);
-      }
-      if (NumOfResponses != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(NumOfResponses);
       }
       return size;
     }
@@ -155,9 +137,6 @@ namespace NigelGott.Terra.Protobufs {
       }
       if (other.Type != 0) {
         Type = other.Type;
-      }
-      if (other.NumOfResponses != 0) {
-        NumOfResponses = other.NumOfResponses;
       }
     }
 
@@ -173,10 +152,6 @@ namespace NigelGott.Terra.Protobufs {
             type_ = (global::NigelGott.Terra.Protobufs.ResponseMessage.Types.ResponseType) input.ReadEnum();
             break;
           }
-          case 16: {
-            NumOfResponses = input.ReadInt32();
-            break;
-          }
         }
       }
     }
@@ -186,11 +161,162 @@ namespace NigelGott.Terra.Protobufs {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static partial class Types {
       public enum ResponseType {
-        [pbr::OriginalName("TERRAIN")] Terrain = 0,
+        [pbr::OriginalName("WORLD_STATE")] WorldState = 0,
       }
 
     }
     #endregion
+
+  }
+
+  public sealed partial class WorldState : pb::IMessage<WorldState> {
+    private static readonly pb::MessageParser<WorldState> _parser = new pb::MessageParser<WorldState>(() => new WorldState());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<WorldState> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::NigelGott.Terra.Protobufs.ResponseReflection.Descriptor.MessageTypes[1]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public WorldState() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public WorldState(WorldState other) : this() {
+      worldSize_ = other.worldSize_;
+      PlayerLocation = other.playerLocation_ != null ? other.PlayerLocation.Clone() : null;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public WorldState Clone() {
+      return new WorldState(this);
+    }
+
+    /// <summary>Field number for the "worldSize" field.</summary>
+    public const int WorldSizeFieldNumber = 1;
+    private int worldSize_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int WorldSize {
+      get { return worldSize_; }
+      set {
+        worldSize_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "playerLocation" field.</summary>
+    public const int PlayerLocationFieldNumber = 2;
+    private global::NigelGott.Terra.Protobufs.FloatCoord playerLocation_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::NigelGott.Terra.Protobufs.FloatCoord PlayerLocation {
+      get { return playerLocation_; }
+      set {
+        playerLocation_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as WorldState);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(WorldState other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (WorldSize != other.WorldSize) return false;
+      if (!object.Equals(PlayerLocation, other.PlayerLocation)) return false;
+      return true;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (WorldSize != 0) hash ^= WorldSize.GetHashCode();
+      if (playerLocation_ != null) hash ^= PlayerLocation.GetHashCode();
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (WorldSize != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(WorldSize);
+      }
+      if (playerLocation_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(PlayerLocation);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (WorldSize != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(WorldSize);
+      }
+      if (playerLocation_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(PlayerLocation);
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(WorldState other) {
+      if (other == null) {
+        return;
+      }
+      if (other.WorldSize != 0) {
+        WorldSize = other.WorldSize;
+      }
+      if (other.playerLocation_ != null) {
+        if (playerLocation_ == null) {
+          playerLocation_ = new global::NigelGott.Terra.Protobufs.FloatCoord();
+        }
+        PlayerLocation.MergeFrom(other.PlayerLocation);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 8: {
+            WorldSize = input.ReadInt32();
+            break;
+          }
+          case 18: {
+            if (playerLocation_ == null) {
+              playerLocation_ = new global::NigelGott.Terra.Protobufs.FloatCoord();
+            }
+            input.ReadMessage(playerLocation_);
+            break;
+          }
+        }
+      }
+    }
 
   }
 
