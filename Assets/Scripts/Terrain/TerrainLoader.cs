@@ -56,5 +56,12 @@ namespace NigelGott.Terra.Terrain
 
             return chunks;
         }
+
+        public Chunk DequeueChunk()
+        {
+            Chunk result;
+            var success = unprocessedChunks.TryDequeue(out result);
+            return success ? result : null;
+        }
     }
 }

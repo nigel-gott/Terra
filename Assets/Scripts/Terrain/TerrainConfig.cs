@@ -5,7 +5,7 @@ namespace NigelGott.Terra.Terrain
 {
     public class TerrainConfig
     {
-        public static readonly int ChunkSize = 512;
+        public static readonly int ChunkSize = 513;
 
         public static readonly int MaximumTerrainHeightWorldUnits = (int) Math.Pow(2, 16);
         public const int HeightmapGridSizeInWorldUnits = 1;
@@ -14,7 +14,7 @@ namespace NigelGott.Terra.Terrain
 
         public static Vector3 CreateTerrainWorldSizeFromTile(Chunk tile)
         {
-            return new Vector3(tile.Size * HeightmapGridSizeInWorldUnits, 10, tile.Size * HeightmapGridSizeInWorldUnits);
+            return new Vector3(tile.Size * HeightmapGridSizeInWorldUnits, 1000, tile.Size * HeightmapGridSizeInWorldUnits);
         }
     }
 }

@@ -45,10 +45,10 @@ namespace NigelGott.Terra
 
             if (Player.activeInHierarchy || terrainUnderPlayerReady)
             {
-                var heightAtPlayer = terrainManager.GetWorldHeight(GameState.PlayerPosition);
+                var heightAtPlayer = terrainManager.GetWorldHeightAt(Player.transform.position);
                 if (Player.transform.position.y < heightAtPlayer - 10)
                 {
-                    Player.transform.position += new Vector3(0, heightAtPlayer - Player.transform.position.y, 0);
+                    Player.transform.position += new Vector3(0, 5 + heightAtPlayer - Player.transform.position.y, 0);
                 }
             }
 

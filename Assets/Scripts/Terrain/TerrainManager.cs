@@ -63,8 +63,8 @@ namespace NigelGott.Terra.Terrain
                 networkManager.StartLoadingChunks(intCoords, TerrainConfig.ChunkSize);
             }
 
-            var loadedChunks = terrainLoader.DequeueAllChunks();
-            foreach (var loadedChunk in loadedChunks)
+            var loadedChunk = terrainLoader.DequeueChunk();
+            if (loadedChunk != null)
             {
                 Debug.Log("Loaded chunk " + loadedChunk.Coord);
                 chunksAlreadyLoading.Remove(loadedChunk.Coord);
@@ -73,6 +73,7 @@ namespace NigelGott.Terra.Terrain
                     RenderChunk(loadedChunk);
                 }
             }
+            
         }
 
         private void UnloadChunks(IEnumerable<Vector2> chunksToUnload)
@@ -89,20 +90,53 @@ namespace NigelGott.Terra.Terrain
             if (freeChunks.Count > 0)
             {
                 var renderedChunk = freeChunks[0];
+                UpdateNeighbors(renderedChunk, false);
                 renderedChunk.RerenderAs(loadedChunk);
                 displayedChunks[loadedChunk.Coord] = renderedChunk;
+                UpdateNeighbors(renderedChunk, true);
+
                 freeChunks.RemoveAt(0);
             }
             else
             {
-                displayedChunks[loadedChunk.Coord] = new RenderedChunk(loadedChunk, terrainParent);
+                newRenderedChunk = new RenderedChunk(loadedChunk, terrainParent);
+                displayedChunks[loadedChunk.Coord] = newRenderedChunk;
+                UpdateNeighbors(newRenderedChunk, true);
             }
         }
 
-        public float GetWorldHeight(Vector2 playerLocation)
+        public static readonly List<Vector2> NeighborDirections = new List<Vector2>
         {
-            var playerChunkPosition = ChunkCalculator.WorldPositionToChunkPosition(playerLocation);
-            return displayedChunks[playerChunkPosition].GetWorldHeight(playerLocation);
+            Vector2.down, Vector2.left, Vector2.up, Vector2.right
+        };
+
+        private RenderedChunk newRenderedChunk;
+
+        private void UpdateNeighbors(RenderedChunk renderedChunk, bool added)
+        {
+            foreach (var neighborDirection in NeighborDirections)
+            {
+                var neighboringChunk = renderedChunk.ChunkPosition + neighborDirection;
+                if (displayedChunks.ContainsKey(neighboringChunk))
+                {
+                    var neighbor = displayedChunks[neighboringChunk];
+                    neighbor.UpdateNeighbor(neighborDirection * -1, renderedChunk, added);
+                    if (added)
+                    {
+                        renderedChunk.AddNeighbor(neighborDirection, neighbor);
+                    }
+                }
+            }
+            if (added)
+            {
+                renderedChunk.SetNeighbors();
+            }
+        }
+
+        public float GetWorldHeightAt(Vector3 playerWorldPosition)
+        {
+            var playerChunkPosition = ChunkCalculator.WorldPositionToChunkPosition(new Vector2(playerWorldPosition.x, playerWorldPosition.z));
+            return displayedChunks[playerChunkPosition].GetWorldHeight(playerWorldPosition);
         }
     }
 }

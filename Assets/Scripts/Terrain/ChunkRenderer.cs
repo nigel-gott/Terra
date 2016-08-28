@@ -21,14 +21,20 @@ namespace NigelGott.Terra.Terrain
             return UnityEngine.Terrain.CreateTerrainGameObject(terrainData);
         }
 
-        public GameObject RenderChunk(Chunk chunk, GameObject parent)
+        public GameObject CreateAndSpawnChunk(Chunk chunk, GameObject parent)
         {
             var terrainObject = BuildGameObject(chunk);
+            SpawnChunk(chunk, parent, terrainObject);
+            return terrainObject;
+        }
+
+        public void SpawnChunk(Chunk chunk, GameObject parent, GameObject terrainObject)
+        {
             terrainObject.transform.parent = parent.transform;
-            var spawnLoc = new Vector3(chunk.Size * chunk.X * TerrainConfig.HeightmapGridSizeInWorldUnits, 0, chunk.Size * chunk.Y * TerrainConfig.HeightmapGridSizeInWorldUnits);
+            var spawnLoc = new Vector3(chunk.Size*chunk.X*TerrainConfig.HeightmapGridSizeInWorldUnits, 0,
+                chunk.Size*chunk.Y*TerrainConfig.HeightmapGridSizeInWorldUnits);
             Debug.Log("Spawning chunk at " + spawnLoc);
             terrainObject.transform.position = spawnLoc;
-            return terrainObject;
         }
     }
 }

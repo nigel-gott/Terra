@@ -10,8 +10,9 @@ namespace NigelGott.Terra.NetworkState
 {
     public class ChunkCalculator
     {
+        private static int size = 6;
 
-        private static readonly List<Vector2> Directions = new List<Vector2> {
+        private static HashSet<Vector2> Directions = new HashSet<Vector2> {
             Vector2.zero,
             Vector2.up,
             Vector2.up + Vector2.right,
@@ -22,6 +23,19 @@ namespace NigelGott.Terra.NetworkState
             Vector2.left,
             Vector2.left + Vector2.up
         };
+
+        static ChunkCalculator()
+        {
+            HashSet<Vector2> updatedDirections = new HashSet<Vector2>(Directions);
+            foreach (var direction in Directions)
+            {
+                foreach (var direction2 in Directions)
+                {
+                    updatedDirections.Add(direction + direction2);
+                }
+            }
+            Directions = updatedDirections;
+        }
         
 
         public static List<Vector2> CalculateImmediatelySurroundingChunks(Vector2 playerCoord, int worldSize)
